@@ -63,8 +63,32 @@ Hero.prototype.questLogBy = function (category) {
     var result = this.questLog.sort(byReward);
     return result;
   }
+
 };
 
+Hero.prototype.completedQuests = function () {
+  var completedQuests = [];
+
+  var completed = function(quest) {
+    if(quest.completionStatus !== false) {
+      completedQuests.push(quest);
+    }
+  }
+
+  this.questLog.filter(completed);
+  return completedQuests;
+};
+
+Hero.prototype.incompleteQuests = function () {
+  var incompleteQuests = [];
+  var incomplete = function(quest) {
+    if(quest.completionStatus === false) {
+      incompleteQuests.push(quest);
+    }
+  }
+  this.questLog.filter(incomplete);
+  return incompleteQuests;
+};
 
 
 module.exports = Hero;

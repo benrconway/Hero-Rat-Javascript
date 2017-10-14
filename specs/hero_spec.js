@@ -72,6 +72,7 @@ describe("Hero", function() {
     var expectedArray = [quest2, quest1];
     assert.deepEqual(resultArray, expectedArray);
   })
+
   it("can display quest log by level of urgency", function () {
     hero.takeQuest(quest1);
     hero.takeQuest(quest2);
@@ -79,12 +80,28 @@ describe("Hero", function() {
     var expectedArray = [quest2, quest1];
     assert.deepStrictEqual(resultArray, expectedArray);
   })
+
   it("can display quest log by level of reward", function () {
     hero.takeQuest(quest1);
     hero.takeQuest(quest2);
     var resultArray = hero.questLogBy("reward")
     var expectedArray = [quest1, quest2];
     assert.deepStrictEqual(resultArray, expectedArray);
+  })
+
+  it("can view a list of completed quests", function () {
+    quest1.completed();
+    hero.takeQuest(quest1);
+    hero.takeQuest(quest2);
+    var result = hero.completedQuests();
+    assert.deepStrictEqual(result, [quest1])
+  })
+
+  it("can view a list of incomplete quests", function () {
+    hero.takeQuest(quest1);
+    hero.takeQuest(quest2);
+    var result = hero.incompleteQuests();
+    assert.deepStrictEqual(result, [quest1, quest2])
   })
 
 })
