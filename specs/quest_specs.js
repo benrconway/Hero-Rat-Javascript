@@ -5,7 +5,7 @@ describe("Quest", function () {
   var quest;
 
   beforeEach(function () {
-    quest = new Quest("Eat your favourite food.", "easy", 1, "A shiny new hat");
+    quest = new Quest("Eat your favourite food.", 1, 1, "A shiny new hat");
   })
 
   it("should have a task", function () {
@@ -13,7 +13,7 @@ describe("Quest", function () {
   })
 
   it("should have a difficulty level", function () {
-    assert.strictEqual(quest.difficulty, "easy");
+    assert.strictEqual(quest.difficulty, 1);
   })
 
   it("should have an urgency level", function () {

@@ -5,13 +5,15 @@ var Food = require("../models/food")
 
 describe("Hero", function() {
   var hero;
-  var quest;
+  var quest1;
+  var quest2;
   var food;
   var favFood;
 
   beforeEach(function() {
     hero = new Hero("Georgio", "Kapusta")
-    quest = new Quest("Eat your favourite food.", "easy", 1, "A shiny new hat");
+    quest1 = new Quest("Eat your favourite food.", 1, 1, "A shiny new hat");
+    quest2 = new Quest("Kill a Rat", 3, 2, "Ancient scroll of Power");
     food = new Food("Ham and Cheese Sandwich", 20);
     favFood = new Food("Kapusta", 20);
   })
@@ -37,7 +39,7 @@ describe("Hero", function() {
   })
 
   it("can add quests to its log", function () {
-    hero.takeQuest(quest);
+    hero.takeQuest(quest1);
     assert.strictEqual(hero.questLog.length, 1);
   })
 
@@ -61,6 +63,28 @@ describe("Hero", function() {
   it("cannot eat without first having it in it's backpack", function () {
     hero.eat(food);
     assert.strictEqual(hero.health, 100);
+  })
+
+  it("can display quest log by level of difficulty", function () {
+    hero.takeQuest(quest1);
+    hero.takeQuest(quest2);
+    var resultArray = hero.questLogBy("difficulty")
+    var expectedArray = [quest2, quest1];
+    assert.deepEqual(resultArray, expectedArray);
+  })
+  it("can display quest log by level of urgency", function () {
+    hero.takeQuest(quest1);
+    hero.takeQuest(quest2);
+    var resultArray = hero.questLogBy("urgency")
+    var expectedArray = [quest2, quest1];
+    assert.deepStrictEqual(resultArray, expectedArray);
+  })
+  it("can display quest log by level of reward", function () {
+    hero.takeQuest(quest1);
+    hero.takeQuest(quest2);
+    var resultArray = hero.questLogBy("reward")
+    var expectedArray = [quest1, quest2];
+    assert.deepStrictEqual(resultArray, expectedArray);
   })
 
 })

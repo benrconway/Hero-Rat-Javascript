@@ -4,6 +4,7 @@ var Hero = function(name, favouriteFood) {
   this.favouriteFood = favouriteFood;
   this.questLog = [];
   this.backpack = [];
+
 };
 
 Hero.prototype.speak = function() {
@@ -37,6 +38,31 @@ Hero.prototype.checkFood = function(food) {
 
 Hero.prototype.takeQuest = function(quest) {
   this.questLog.push(quest);
+};
+
+Hero.prototype.questLogBy = function (category) {
+  var byDifficulty = function (a, b) {
+    return b.difficulty - a.difficulty;
+  }
+  var byUrgency = function(a , b) {
+    return b.urgency - a.urgency;
+  }
+  var byReward = function(a , b) {
+    return b.reward - a.reward;
+  }
+
+  if(category === "difficulty") {
+    var result = this.questLog.sort(byDifficulty);
+    return result;
+  }
+  if(category === "urgency") {
+    var result = this.questLog.sort(byUrgency);
+    return result;
+  }
+  if(category === "reward"){
+    var result = this.questLog.sort(byReward);
+    return result;
+  }
 };
 
 
