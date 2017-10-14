@@ -9,7 +9,7 @@ describe("Quest", function () {
   })
 
   it("should have a task", function () {
-    assert.strictEqual(quest.task, "Eat your favourite food");
+    assert.strictEqual(quest.task, "Eat your favourite food.");
   })
 
   it("should have a difficulty level", function () {
