@@ -2,6 +2,7 @@ var assert = require("assert");
 var Hero = require("../models/hero")
 var Quest = require("../models/quest")
 var Food = require("../models/food")
+var Rat = require("../models/rat")
 
 describe("Hero", function() {
   var hero;
@@ -9,6 +10,7 @@ describe("Hero", function() {
   var quest2;
   var food;
   var favFood;
+  var rat;
 
   beforeEach(function() {
     hero = new Hero("Georgio", "Kapusta")
@@ -16,6 +18,7 @@ describe("Hero", function() {
     quest2 = new Quest("Kill a Rat", 3, 2, "Ancient scroll of Power");
     food = new Food("Ham and Cheese Sandwich", 20);
     favFood = new Food("Kapusta", 20);
+    rat = new Rat();
   })
 
   it("should have a name", function() {
@@ -65,6 +68,10 @@ describe("Hero", function() {
     assert.strictEqual(hero.health, 100);
   })
 
+  it("will lose health by eating poisonous food", function () {
+    
+  })
+
   it("can display quest log by level of difficulty", function () {
     hero.takeQuest(quest1);
     hero.takeQuest(quest2);
@@ -103,5 +110,7 @@ describe("Hero", function() {
     var result = hero.incompleteQuests();
     assert.deepStrictEqual(result, [quest1, quest2])
   })
+
+
 
 })
