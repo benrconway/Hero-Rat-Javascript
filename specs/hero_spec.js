@@ -47,13 +47,20 @@ describe("Hero", function() {
   })
 
   it("can eat food to replenish health", function () {
-      hero.eat(food);
-      assert.strictEqual(hero.health, 120);
+    hero.takeItem(food);
+    hero.eat(food);
+    assert.strictEqual(hero.health, 120);
   })
 
   it("can regain more health by eating it's favourite food", function () {
-    hero.eat(favouriteFood);
+    hero.takeItem(favFood);
+    hero.eat(favFood);
     assert.strictEqual(hero.health, 130);
+  })
+
+  it("cannot eat without first having it in it's backpack", function () {
+    hero.eat(food);
+    assert.strictEqual(hero.health, 100);
   })
 
 })

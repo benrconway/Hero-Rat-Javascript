@@ -10,11 +10,21 @@ Hero.prototype.speak = function() {
   return "Hi, my name is " + this.name + "!"
 };
 
+Hero.prototype.takeItem = function(item) {
+  this.backpack.push(item);
+}
+
 Hero.prototype.eat = function(food) {
-  var replenishmentValue = checkFood(food);
+  if(this.hasFood(food)){
+  var replenishmentValue = this.checkFood(food);
   this.health += replenishmentValue;
-  this.backpack.splice(indexOf(food), 1);
+  this.backpack.splice(this.backpack.indexOf(food), 1);
+  }
 };
+
+Hero.prototype.hasFood = function(food){
+  return this.backpack.includes(food);
+}
 
 Hero.prototype.checkFood = function(food) {
     var foodToCheck = food.name.toLowerCase();
