@@ -5,7 +5,11 @@ describe("Quest", function () {
   var quest;
 
   beforeEach(function () {
-    quest = new Quest("easy", 1, "Ancient Scroll of Power");
+    quest = new Quest("Eat your favourite food.", "easy", 1, "A shiny new hat");
+  })
+
+  it("should have a task", function () {
+    assert.strictEqual(quest.task, "Eat your favourite food");
   })
 
   it("should have a difficulty level", function () {
@@ -17,7 +21,7 @@ describe("Quest", function () {
   })
 
   it("should have a reward", function () {
-    assert.strictEqual(quest.reward, "Ancient Scroll of Power");
+    assert.strictEqual(quest.reward, "A shiny new hat");
   })
 
   it("should have a completion indicator start as false", function () {
