@@ -17,8 +17,8 @@ Hero.prototype.takeItem = function(item) {
 
 Hero.prototype.eat = function(food) {
   if(this.hasFood(food)){
-  var replenishmentValue = this.checkFood(food);
-  this.health += replenishmentValue;
+  var modifier = this.checkFood(food);
+  this.health += modifier;
   this.backpack.splice(this.backpack.indexOf(food), 1);
   }
 };
@@ -28,12 +28,26 @@ Hero.prototype.hasFood = function(food){
 }
 
 Hero.prototype.checkFood = function(food) {
-    var foodToCheck = food.name.toLowerCase();
-    var favourite = this.favouriteFood.toLowerCase();
-    if( foodToCheck === favourite){
-      return food.replenishmentValue * 1.5;
+  var healthGain = 0;
+  if(!food.poisonous && this.checkForFavouritism(food)){
+      healthGain = food.replenishmentValue * 1.5;
     }
-    return food.replenishmentValue;
+  if(!food.poisonous && !this.checkForFavouritism(food)) {
+      healthGain = food.replenishmentValue;
+    }
+  if(food.poisonous){
+      healthGain -= food.replenishmentValue / 2;
+  }
+  return healthGain;
+};
+
+Hero.prototype.checkForFavouritism = function (food) {
+  var foodToCheck = food.name.toLowerCase();
+  var favourite = this.favouriteFood.toLowerCase();
+  if(foodToCheck === favourite){
+    return true;
+  }
+  return false;
 };
 
 Hero.prototype.takeQuest = function(quest) {

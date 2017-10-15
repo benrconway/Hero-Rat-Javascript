@@ -69,7 +69,10 @@ describe("Hero", function() {
   })
 
   it("will lose health by eating poisonous food", function () {
-    
+    rat.touchFood(food);
+    hero.takeItem(food);
+    hero.eat(food);
+    assert.strictEqual(hero.health, 90);
   })
 
   it("can display quest log by level of difficulty", function () {
@@ -110,7 +113,5 @@ describe("Hero", function() {
     var result = hero.incompleteQuests();
     assert.deepStrictEqual(result, [quest1, quest2])
   })
-
-
 
 })
