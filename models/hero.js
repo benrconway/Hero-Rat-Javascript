@@ -4,7 +4,6 @@ var Hero = function(name, favouriteFood) {
   this.favouriteFood = favouriteFood;
   this.questLog = [];
   this.backpack = [];
-
 };
 
 Hero.prototype.speak = function() {
@@ -13,7 +12,7 @@ Hero.prototype.speak = function() {
 
 Hero.prototype.takeItem = function(item) {
   this.backpack.push(item);
-}
+};
 
 Hero.prototype.eat = function(food) {
   if(this.hasFood(food)){
@@ -25,11 +24,11 @@ Hero.prototype.eat = function(food) {
 
 Hero.prototype.hasFood = function(food){
   return this.backpack.includes(food);
-}
+};
 
 Hero.prototype.checkFood = function(food) {
   var healthGain = 0;
-  if(!food.poisonous && this.checkForFavouritism(food)){
+  if(!food.poisonous && this.checkForFavouritism(food)) {
       healthGain = food.replenishmentValue * 1.5;
     }
   if(!food.poisonous && !this.checkForFavouritism(food)) {
@@ -55,53 +54,22 @@ Hero.prototype.takeQuest = function(quest) {
 };
 
 Hero.prototype.questLogBy = function (category) {
-  var byDifficulty = function (a, b) {
-    return b.difficulty - a.difficulty;
-  }
-  var byUrgency = function(a , b) {
-    return b.urgency - a.urgency;
-  }
-  var byReward = function(a , b) {
-    return b.reward - a.reward;
-  }
-
-  if(category === "difficulty") {
-    var result = this.questLog.sort(byDifficulty);
-    return result;
-  }
-  if(category === "urgency") {
-    var result = this.questLog.sort(byUrgency);
-    return result;
-  }
-  if(category === "reward"){
-    var result = this.questLog.sort(byReward);
-    return result;
-  }
-
+    return this.questLog.sort(function(a , b) {
+      return b[category] - a[category]});
 };
 
 Hero.prototype.completedQuests = function () {
-  var completedQuests = [];
-
-  var completed = function(quest) {
-    if(quest.completionStatus !== false) {
-      completedQuests.push(quest);
-    }
+   var completed = function(quest) {
+    return quest.completionStatus;
   }
-
-  this.questLog.filter(completed);
-  return completedQuests;
+  return this.questLog.filter(completed);
 };
 
 Hero.prototype.incompleteQuests = function () {
-  var incompleteQuests = [];
   var incomplete = function(quest) {
-    if(quest.completionStatus === false) {
-      incompleteQuests.push(quest);
-    }
+    return !quest.completionStatus;
   }
-  this.questLog.filter(incomplete);
-  return incompleteQuests;
+  return this.questLog.filter(incomplete);
 };
 
 
